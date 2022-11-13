@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Photo } from '../model/Photo'
 import PhotoCard from './PhotoCard'
 type PhotoGalleryProps = {
@@ -10,6 +10,7 @@ type PhotoGalleryProps = {
 export default function PhotoGallery(props: PhotoGalleryProps) {
     const [formValue, setFormValue] = useState(new File([], ""))
     const [preview, setPreview] = useState("")
+    const [photoIsReady, setPhotoIsReady] = useState(false)
 
     function mapAllPhotos() {
         return (
@@ -22,36 +23,49 @@ export default function PhotoGallery(props: PhotoGalleryProps) {
     function onChangePhotoInput(action: React.ChangeEvent<HTMLInputElement>) {
         if (action.target.files === null) return
         setFormValue(action.target.files[0])
-        console.log(formValue);
-
+        convertToImage(action.target.files[0])
     }
+
+    useEffect(() => {
+        if (preview.length > 100) {
+            setPhotoIsReady(true)
+        }
+        else {
+            setPhotoIsReady(false)
+        }
+    }, [preview])
+
     function handlePhotoSubmit(action: React.FormEvent<HTMLFormElement>) {
         action.preventDefault()
-        let newPhoto: string = ""
+        if (photoIsReady) {
+            props.addNewPhoto({
+                name: "test",
+                source: preview,
+                tags: []
+            })
+        }
+    }
+    console.log(photoIsReady);
+    
+    function convertToImage(photo:File) {
         const reader = new FileReader();
-        reader.readAsDataURL(formValue)
+        reader.readAsDataURL(photo)
         reader.onloadend = () => {
             if (reader.result && typeof reader.result === "string") {
-                newPhoto = reader.result
+                setPreview(reader.result)
             }
         };
-        props.addNewPhoto({
-            name: "test",
-            source: newPhoto,
-            tags: []
-        })
     }
-    console.log(preview);
-
     return (
         <>
             <div>PhotoGallery</div>
             <form onSubmit={handlePhotoSubmit}>
                 <input type={"file"} onChange={onChangePhotoInput} />
                 <button type='submit'>Submit</button>
+            <p>{photoIsReady? "Ready to Upload" : "Not Ready"}</p>
             </form>
-            <img src={preview} alt="hallo" />
-            {/* {mapAllPhotos()} */}
+            {/* <img src={preview} alt="hallo" /> */}
+            {mapAllPhotos()}
         </>
     )
 }
