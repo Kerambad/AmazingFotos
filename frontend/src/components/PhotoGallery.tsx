@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Photo } from '../model/Photo'
 import PhotoCard from './PhotoCard'
+import "./PhotoGallery.css"
+
 type PhotoGalleryProps = {
     photos: Photo[]
     addNewPhoto: (newPhoto: Photo) => void
@@ -46,8 +48,8 @@ export default function PhotoGallery(props: PhotoGalleryProps) {
         }
     }
     console.log(photoIsReady);
-    
-    function convertToImage(photo:File) {
+
+    function convertToImage(photo: File) {
         const reader = new FileReader();
         reader.readAsDataURL(photo)
         reader.onloadend = () => {
@@ -62,10 +64,12 @@ export default function PhotoGallery(props: PhotoGalleryProps) {
             <form onSubmit={handlePhotoSubmit}>
                 <input type={"file"} onChange={onChangePhotoInput} />
                 <button type='submit'>Submit</button>
-            <p>{photoIsReady? "Ready to Upload" : "Not Ready"}</p>
+                <p>{photoIsReady ? "Ready to Upload" : "Not Ready"}</p>
             </form>
             {/* <img src={preview} alt="hallo" /> */}
-            {mapAllPhotos()}
+            <div className='gallery'>
+                {mapAllPhotos()}
+            </div>
         </>
     )
 }

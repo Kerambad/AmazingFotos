@@ -6,15 +6,22 @@ type PhotoCardProps = {
 
 export default function PhotoCard(props: PhotoCardProps) {
     function displayAllTags() {
-        return(<p>
+        return (<p>
             {props.photo.tags.map((tag) => {
-                return tag + " ";})}
+                return tag + " ";
+            })}
         </p>)
     }
-  return (
-    <>
-        {displayAllTags()}
-        <img src={props.photo.source} alt={"Photo: "+ props.photo.name} />
-    </>
-  )
+    return (
+        <>
+            {displayAllTags()}
+            <div className="card" style={{width: "20em"}}>
+                <div className="card-header">
+                    <p>Tags: {displayAllTags()}</p>
+                </div>
+                    <img src={props.photo.source} alt={"Photo: " + props.photo.name} className="card-img-top img-fluid" style={{height:"15em", objectFit: "contain"}}/>
+
+            </div>
+        </>
+    )
 }
