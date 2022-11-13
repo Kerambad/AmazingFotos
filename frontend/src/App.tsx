@@ -3,10 +3,10 @@ import PhotoGallery from './components/PhotoGallery';
 import usePhotos, { } from './hooks/usePhotos'
 
 function App() {
-  const {photos} = usePhotos();
+  const {photos, addNewPhoto} = usePhotos();
   return (
     <div className="App">
-      <PhotoGallery photos={photos} />
+      <PhotoGallery photos={photos} addNewPhoto={addNewPhoto}/>
     </div>
   );
 }
