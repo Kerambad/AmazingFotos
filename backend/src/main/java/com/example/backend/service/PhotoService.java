@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class PhotoService {
@@ -31,5 +32,13 @@ public class PhotoService {
                 photoWithoutId.getTags()
         );
         return repo.save(newPhotoWithId);
+    }
+
+    public Boolean removePhotoById(String id) {
+        if (!repo.existsById(id)) {
+            throw new NoSuchElementException("Element Not Found: " + id);
+        }
+        repo.deleteById(id);
+        return true;
     }
 }

@@ -97,4 +97,26 @@ class VideoControllerTest {
         //THEN
 
     }
+    @Test
+    @DirtiesContext
+    void removePhotoById_ShouldReturnTrue_IfPhotoWasDeletedSuccessfully() throws Exception {
+        //GIVEN
+        testRepo.save(testPhoto1);
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.delete( "/api/photos/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().string("true"));
+        //THEN
+
+    }
+    @Test
+    @DirtiesContext
+    void removePhotoById_ShouldReturnStatusCode404NotFound_IfPhotoIdWasNotFound() throws Exception {
+        //GIVEN
+        //WHEN
+        mockMvc.perform(MockMvcRequestBuilders.delete( "/api/photos/1"))
+                .andExpect(status().isNotFound())
+                .andExpect(content().string("Element Not Found: 1"));
+        //THEN
+    }
 }

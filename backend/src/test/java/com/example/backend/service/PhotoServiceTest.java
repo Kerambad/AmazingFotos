@@ -6,8 +6,10 @@ import com.example.backend.repository.PhotoRepo;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -45,5 +47,24 @@ class PhotoServiceTest {
         Photo actual = testService.addNewPhoto(testPhotoDTO);
         //THEN
         assertEquals(testPhoto1Expected, actual);
+    }
+
+    @Test
+    void removePhotoById_ShouldReturnTrue_ifPhotoIdExists() {
+        //GIVEN
+        when(testRepo.existsById("1")).thenReturn(true);
+        //WHEN
+        Boolean actual = testService.removePhotoById("1");
+        //THEN
+        assertTrue(actual);
+    }
+    @Test
+    void removePhotoById_ShouldThrowNoSuchElementException_IfVideoIdWasNotFound() {
+        //GIVEN
+        when(testRepo.existsById("1")).thenReturn(false);
+        //WHEN
+        //THEN
+        assertThrows(NoSuchElementException.class, () -> testService.removePhotoById("1"));
+
     }
 }

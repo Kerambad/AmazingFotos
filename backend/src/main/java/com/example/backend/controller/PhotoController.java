@@ -27,4 +27,9 @@ public class PhotoController {
     public Photo addNewPhoto(@RequestBody PhotoDTO photoWithoutId) {
     return service.addNewPhoto(photoWithoutId);
     }
+
+    @DeleteMapping("/{id}")
+    public Boolean removePhotoById(@PathVariable String id) {
+        return service.removePhotoById(id);
+    }
 }

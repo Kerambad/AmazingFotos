@@ -6,6 +6,7 @@ import "./PhotoGallery.css"
 type PhotoGalleryProps = {
     photos: Photo[]
     addNewPhoto: (newPhoto: Photo) => void
+    removePhoto: (photoId: string) => void
 }
 
 
@@ -18,7 +19,7 @@ export default function PhotoGallery(props: PhotoGalleryProps) {
         return (
             props.photos.map((photo) => {
                 return (
-                    <PhotoCard photo={photo} key={photo.photoId} />
+                    <PhotoCard photo={photo} key={photo.photoId} removePhoto={props.removePhoto} />
                 )
             }))
     }
@@ -61,9 +62,7 @@ export default function PhotoGallery(props: PhotoGalleryProps) {
     return (
         <>
             <form className={"inputForm"} onSubmit={handlePhotoSubmit}>
-                <div className="mb-3">
                     <input className="form-control" type="file" id="formFile" onChange={onChangePhotoInput}/>
-                </div>
 
                 <button type='submit' className='btn btn-primary'>Add</button>
                 <p>{photoIsReady ? <p className='alert alert-success'>Photo Ready to Upload</p> : <p className='alert alert-danger'>Select a Photo</p>}</p>
