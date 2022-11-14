@@ -1,4 +1,12 @@
 .gallery {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+}
+
+.inputForm {
+    display: flex;
+    justify-content: center;
+    margin: 2em auto;
+    
 }

@@ -15,7 +15,7 @@ export default function PhotoCard(props: PhotoCardProps) {
     return (
         <>
             {displayAllTags()}
-            <div className="card" style={{width: "20em"}}>
+            <div className="card bg-dark text-white border-white" style={{width: "20em"}}>
                 <div className="card-header">
                     <p>Tags: {displayAllTags()}</p>
                 </div>

@@ -5,7 +5,7 @@ import usePhotos, { } from './hooks/usePhotos'
 function App() {
   const {photos, addNewPhoto} = usePhotos();
   return (
-    <div className="App">
+    <div>
       <PhotoGallery photos={photos} addNewPhoto={addNewPhoto}/>
     </div>
   );

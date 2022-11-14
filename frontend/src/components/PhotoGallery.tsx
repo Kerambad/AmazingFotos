@@ -60,13 +60,14 @@ export default function PhotoGallery(props: PhotoGalleryProps) {
     }
     return (
         <>
-            <div>PhotoGallery</div>
-            <form onSubmit={handlePhotoSubmit}>
-                <input type={"file"} onChange={onChangePhotoInput} />
-                <button type='submit'>Submit</button>
-                <p>{photoIsReady ? "Ready to Upload" : "Not Ready"}</p>
+            <form className={"inputForm"} onSubmit={handlePhotoSubmit}>
+                <div className="mb-3">
+                    <input className="form-control" type="file" id="formFile" onChange={onChangePhotoInput}/>
+                </div>
+
+                <button type='submit' className='btn btn-primary'>Add</button>
+                <p>{photoIsReady ? <p className='alert alert-success'>Photo Ready to Upload</p> : <p className='alert alert-danger'>Select a Photo</p>}</p>
             </form>
-            {/* <img src={preview} alt="hallo" /> */}
             <div className='gallery'>
                 {mapAllPhotos()}
             </div>
