@@ -36,7 +36,7 @@ export default function PhotoCard(props: PhotoCardProps) {
                     </p>
                 </span>
                 <span className=' image-tile'>
-                    <img src={props.photo.source} alt={"Photo: " + props.photo.name} className="card-img-top img-fluid ratio ratio-4x3" style={{ objectFit: "contain" }} />
+                    <img src={props.photo.source} alt={"Photo: " + props.photo.name} className="card-img-top img-fluid" style={{height:"14rem", objectFit: "contain" }} />
                 </span>
             </span>
         </>
